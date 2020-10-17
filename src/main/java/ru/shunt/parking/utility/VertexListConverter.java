@@ -1,6 +1,6 @@
 package ru.shunt.parking.utility;
 
-import ru.shunt.parking.pojo.ParkingLot;
+import ru.shunt.parking.dto.ParkingLotDto;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Converter
-public class VertexListConverter implements AttributeConverter<List<ParkingLot.Vertex>, String> {
+public class VertexListConverter implements AttributeConverter<List<ParkingLotDto.Vertex>, String> {
 	@Override
-	public String convertToDatabaseColumn(List<ParkingLot.Vertex> attribute) {
+	public String convertToDatabaseColumn(List<ParkingLotDto.Vertex> attribute) {
 		if(attribute == null || attribute.isEmpty()){
 			return "";
 		}
@@ -21,15 +21,15 @@ public class VertexListConverter implements AttributeConverter<List<ParkingLot.V
 	}
 
 	@Override
-	public List<ParkingLot.Vertex> convertToEntityAttribute(String dbData) {
+	public List<ParkingLotDto.Vertex> convertToEntityAttribute(String dbData) {
 		if(dbData==null || dbData.isEmpty()){
 			return new ArrayList<>();
 		}
 		String[] vertices = dbData.split("\\|");
-		List<ParkingLot.Vertex> resultList = new ArrayList<>();
+		List<ParkingLotDto.Vertex> resultList = new ArrayList<>();
 		for (String vertex: vertices){
 			String[] s1 = vertex.split(" ");
-			resultList.add(new ParkingLot.Vertex(Double.parseDouble(s1[0]), Double.parseDouble(s1[1])));
+			resultList.add(new ParkingLotDto.Vertex(Double.parseDouble(s1[0]), Double.parseDouble(s1[1])));
 		}
 		return  resultList;
 	}

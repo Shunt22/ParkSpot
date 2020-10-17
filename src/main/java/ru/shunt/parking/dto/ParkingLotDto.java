@@ -1,4 +1,4 @@
-package ru.shunt.parking.pojo;
+package ru.shunt.parking.dto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -8,9 +8,9 @@ import java.util.List;
 
 @Value
 @RequiredArgsConstructor
-public class ParkingLot {
+public class ParkingLotDto {
 
-	public ParkingLot() {
+	public ParkingLotDto() {
 		id = 0;
 		vertices = new ArrayList<>();
 		name = "";

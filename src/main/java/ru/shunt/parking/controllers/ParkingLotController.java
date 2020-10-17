@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.shunt.parking.database.ParkingLotTableRepository;
-import ru.shunt.parking.database.ParkingLotTable;
+import ru.shunt.parking.database.ParkingLotEntityRepository;
+import ru.shunt.parking.database.ParkingLotEntity;
+import ru.shunt.parking.dto.ParkingLotDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +17,10 @@ public class ParkingLotController {
 
 
 	@Autowired
-	ParkingLotTableRepository parkingLotTableRepository;
+	ParkingLotEntityRepository parkingLotEntityRepository;
 
 	@RequestMapping(path = "/returnAll")
-	public List<ru.shunt.parking.pojo.ParkingLot> returnAll() {
+	public List<ParkingLotDto> returnAll() {
 //		ru.shunt.parking.pojo.ParkingLot.Vertex vertex1 = new ru.shunt.parking.pojo.ParkingLot.Vertex(55.75,  37.80);
 //		ru.shunt.parking.pojo.ParkingLot.Vertex vertex2 = new ru.shunt.parking.pojo.ParkingLot.Vertex(53.50, 37.80);
 //		ru.shunt.parking.pojo.ParkingLot.Vertex vertex3 = new ru.shunt.parking.pojo.ParkingLot.Vertex(53.50, 38.00);
@@ -28,15 +29,15 @@ public class ParkingLotController {
 //				Arrays.asList(vertex1,vertex2,vertex3,vertex4),
 //				"Test name");
 //	return Arrays.asList(p);
-		List<ParkingLotTable> all = (List<ParkingLotTable>) parkingLotTableRepository.findAll();
-		return  all.stream().map(ParkingLotTable::toParkingLot).collect(Collectors.toList());
+		List<ParkingLotEntity> all = (List<ParkingLotEntity>) parkingLotEntityRepository.findAll();
+		return  all.stream().map(ParkingLotEntity::toParkingLot).collect(Collectors.toList());
 
 	}
 
 	@PostMapping("/addNew")
-	public void addNewParkingLot(@RequestBody ru.shunt.parking.pojo.ParkingLot p) {
+	public void addNewParkingLot(@RequestBody ParkingLotDto p) {
 
-		parkingLotTableRepository.save(new ParkingLotTable().copy(p));
+		parkingLotEntityRepository.save(new ParkingLotEntity().copy(p));
 	}
 
 }
