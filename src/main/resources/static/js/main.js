@@ -19,6 +19,7 @@ function init(){
     .done(function(data) {
         $.each( data, function( index, parkinglot ) {
             var geometry = [[]];
+            console.log(parkinglot);
             $.each(parkinglot.vertices, function( index1, vertex ) {
                 geometry[0].push([vertex.x,vertex.y]);
             });
