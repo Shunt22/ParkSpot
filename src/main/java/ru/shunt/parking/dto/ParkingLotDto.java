@@ -10,15 +10,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ParkingLotDto {
 
+	long id;
+	List<Vertex> vertices;
+	String name;
+	String timeStart;
+	String timeFinish;
+
 	public ParkingLotDto() {
 		id = 0;
 		vertices = new ArrayList<>();
 		name = "";
+		timeStart = "";
+		timeFinish = "";
 	}
 
-	long id;
-	List<Vertex> vertices;
-	String name;
 
 	@Value
 	public static class Vertex {

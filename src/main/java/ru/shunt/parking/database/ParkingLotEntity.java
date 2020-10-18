@@ -21,15 +21,19 @@ public class ParkingLotEntity {
 	@Convert(converter = VertexListConverter.class)
 	private List<ParkingLotDto.Vertex> vertices;
 	private String name;
+	private String timeStart;
+	private String timeFinish;
 
-	public ParkingLotEntity copy(ParkingLotDto p) {
-		this.id = p.getId();
-		this.name = p.getName();
-		this.vertices = new ArrayList<>(p.getVertices());
+	public ParkingLotEntity copy(ParkingLotDto dto) {
+		this.id = dto.getId();
+		this.name = dto.getName();
+		this.vertices = new ArrayList<>(dto.getVertices());
+		this.timeStart = dto.getTimeStart();
+		this.timeFinish = dto.getTimeFinish();
 		return this;
 	}
 
-	public ParkingLotDto toParkingLot() {
-		return new ParkingLotDto(id, new ArrayList<>(vertices), name);
+	public ParkingLotDto toParkingLotDto() {
+		return new ParkingLotDto(id, new ArrayList<>(vertices), name, timeStart, timeFinish);
 	}
 }

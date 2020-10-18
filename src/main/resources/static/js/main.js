@@ -23,9 +23,10 @@ function init(){
                 geometry.push([vertex.x,vertex.y]);
             });
             var parkingLotRectangle = new ymaps.Rectangle(geometry);
+            var parkingLotInfo = parkinglot.name+"\nWorking time: "+parkinglot.timeStart+"-"+parkinglot.timeFinish;
             parkingLotRectangle.properties={
                 hintContent: parkinglot.name,
-                balloonContent: "TEST"
+                balloonContent: parkingLotInfo
             }
             map.geoObjects.add(parkingLotRectangle);
         });
@@ -55,17 +56,20 @@ function init(){
         if(parkingLot===undefined){
             return;
         }
+
         var object={}
         object.vertices=[];
         $.each(parkingLot.geometry._bounds, function(index,data){
             object.vertices.push({x:data[0],y:data[1]});
         });
         object.name=$("#newParkingLotName").val();
+        object.timeStart=$("#timeStart").val();
+        object.timeFinish=$("#timeFinish").val();
 
-         parkingLot.properties={
+        parkingLot.properties={
                         hintContent: object.name,
                         balloonContent:object.name
-            }
+        }
         $.ajax({
             url: "/addNew",
             type: "POST",
@@ -82,6 +86,7 @@ function init(){
         });
         parkingLot.editor.stopFraming();
         $("#addNewDiv").hide();
+        parkingLot=null;
     });
     
     $("#24Hours").change(function() {
